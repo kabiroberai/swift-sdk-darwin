@@ -2,7 +2,12 @@
 
 set -e
 
-linux_version=ubuntu22.04-aarch64
+if [[ $# -ne 1 || $1 == -h || $1 == --help ]]; then
+    echo "Usage: $0 <linux version such as ubuntu22.04>"
+    exit 1
+fi
+
+linux_version=$1
 
 DARWIN_TOOLS_VERSION="2.2.1"
 SUPPORTED_SDKS=(iphoneos macosx)
@@ -10,10 +15,10 @@ SUPPORTED_SDKS=(iphoneos macosx)
 swift_version="$(swift --version 2>/dev/null | head -1 | cut -f4 -d" ")"
 echo "Detected Swift version $swift_version"
 
-rm -rf output
 mkdir -p output
 
-bundle="output/swift-${swift_version}-darwin.artifactbundle"
+bundle="output/swift-${swift_version}-darwin-${linux_version}.artifactbundle"
+rm -rf "$bundle"
 cp -a layout "$bundle"
 
 mkdir -p "$bundle/res"
@@ -22,7 +27,7 @@ cp -a "$(dirname "$(xcrun -f swiftc)")/../lib/"{swift,swift_static,clang} "$bund
 mkdir -p "$bundle/toolset"
 curl -#L "https://github.com/kabiroberai/darwin-tools-linux/releases/download/v${DARWIN_TOOLS_VERSION}/darwin-tools-${linux_version}.tar.gz" | tar xvzf - -C "$bundle/toolset" --strip-components=2
 
-function add_ver() {
+function add_ver {
     target="$1$2"
     mkdir -p "$bundle/targets/$target"
     sed 's/$TARGET/'$target'/g' templates/toolset-target.json > "$bundle/targets/$target/toolset.json"
@@ -31,7 +36,7 @@ function add_ver() {
     mv "$bundle/info.json"{.tmp,}
 }
 
-function add_plat() {
+function add_plat {
     sdk_path="$(readlink -f $(xcrun --show-sdk-path -sdk $1))"
     sdk_name="$(basename "$sdk_path")"
     sys="$(jq -r ".SupportedTargets.$1.LLVMTargetTripleSys" < "$sdk_path/SDKSettings.json")"
