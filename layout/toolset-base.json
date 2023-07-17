@@ -1,0 +1,18 @@
+{
+    "schemaVersion": "1.0",
+    "rootPath": "toolset/bin",
+    "swiftCompiler": {
+        "//": "workaround for bugs in the current swift-sdk impl",
+        "extraCLIOptions": [
+            "-resource-dir", "$BUNDLE/res/swift",
+            "-Xclang-linker", "-resource-dir=$BUNDLE/res/swift/clang",
+            "-use-ld=$BUNDLE/toolset/bin/ld"
+        ]
+    },
+    "linker": {
+        "path": "./ld"
+    },
+    "librarian": {
+        "path": "./libtool"
+    }
+}

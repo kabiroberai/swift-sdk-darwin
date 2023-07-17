@@ -1,0 +1,11 @@
+{
+    "schemaVersion": "3.0",
+    "runTimeTriples": {
+        "arm64-apple-darwin": {
+            "sdkRootPath": "../../sdks/$SDK",
+            "swiftResourcesPath": "../../res/swift",
+            "swiftStaticResourcesPath": "../../res/swift_static",
+            "toolsetPaths": ["../../toolset.json", "toolset.json"]
+        }
+    }
+}

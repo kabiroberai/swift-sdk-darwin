@@ -1,0 +1,9 @@
+{
+    "schemaVersion": "1.0",
+    "swiftCompiler": {
+        "extraCLIOptions": ["-target", "arm64-apple-$TARGET"]
+    },
+    "cCompiler": {
+        "extraCLIOptions": ["-target", "arm64-apple-$TARGET"]
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "artifacts": {
+        "$TARGET": {
+            "type": "swiftSDK",
+            "version": "0.0.1",
+            "variants": [
+                {
+                    "path": "targets/$TARGET",
+                    "supportedTriples": ["aarch64-unknown-linux-gnu"]
+                }
+            ]
+        }
+    }
+}
