@@ -10,9 +10,9 @@
         ]
     },
     "linker": {
-        "path": "./ld"
+        "path": "ld"
     },
     "librarian": {
-        "path": "./libtool"
+        "path": "libtool"
     }
 }
