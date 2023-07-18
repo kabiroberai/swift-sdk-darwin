@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo "warning: this toolchain does not support generating dSYM files." >&2

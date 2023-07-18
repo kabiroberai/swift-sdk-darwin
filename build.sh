@@ -30,6 +30,7 @@ cp -a "$dev_dir/Toolchains/XcodeDefault.xctoolchain/usr/lib/"{swift,swift_static
 
 mkdir -p "$bundle/toolset"
 curl -#L "https://github.com/kabiroberai/darwin-tools-linux/releases/download/v${DARWIN_TOOLS_VERSION}/darwin-tools-${linux_version}.tar.gz" | tar xvzf - -C "$bundle/toolset" --strip-components=2
+cp -a templates/dsymutil "$bundle/toolset/bin/"
 
 function add_ver {
     target="$1$2"
