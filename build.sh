@@ -21,7 +21,7 @@ fi
 
 mkdir -p output
 
-bundle="output/swift-darwin-${linux_version}.artifactbundle"
+bundle="output/darwin.artifactbundle"
 rm -rf "$bundle"
 cp -a layout "$bundle"
 
