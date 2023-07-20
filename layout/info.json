@@ -1,22 +1,12 @@
 {
     "schemaVersion": "1.0",
     "artifacts": {
-        "ios": {
+        "darwin": {
             "type": "swiftSDK",
             "version": "0.0.1",
             "variants": [
                 {
-                    "path": "targets/ios",
-                    "supportedTriples": ["aarch64-unknown-linux-gnu", "x86_64-unknown-linux-gnu"]
-                }
-            ]
-        },
-        "macos": {
-            "type": "swiftSDK",
-            "version": "0.0.1",
-            "variants": [
-                {
-                    "path": "targets/macos",
+                    "path": ".",
                     "supportedTriples": ["aarch64-unknown-linux-gnu", "x86_64-unknown-linux-gnu"]
                 }
             ]

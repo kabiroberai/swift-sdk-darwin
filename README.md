@@ -34,7 +34,7 @@ swift experimental-sdk install path/to/darwin.artifactbundle
 ## Usage
 
 ```
-swift build --experimental-swift-sdk ios
+swift build --experimental-swift-sdk arm64-apple-ios
 ```
 
 ## TODO
