@@ -30,7 +30,7 @@ echo "Installing toolset..."
 mkdir -p "$bundle/toolset"
 curl -#L "https://github.com/kabiroberai/darwin-tools-linux/releases/download/v${DARWIN_TOOLS_VERSION}/darwin-tools-${linux_version}.tar.gz" \
     | tar xzf - -C "$bundle/toolset" --strip-components=2
-cp -a templates/dsymutil "$bundle/toolset/bin/"
+echo '#!/bin/sh' > "$bundle/toolset/bin/dsymutil"
 
 echo "Installing Developer directories..."
 mkdir -p "$bundle/Developer"
