@@ -23,9 +23,8 @@ Find the output at `output/darwin.artifactbundle`.
 ## Installing
 
 Prerequisites:
-- Linux
 - Swift 5.9 toolchain (<https://swift.org/download>)
-- `darwin.artifactbundle` (see **Building**)
+- `darwin.artifactbundle` built for your host OS (see **Building**)
 
 ```
 swift experimental-sdk install output/darwin.artifactbundle
