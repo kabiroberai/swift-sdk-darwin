@@ -18,17 +18,17 @@ Steps:
     - **linux host**: You can pass any Linux host for which a darwin-tools-linux [release](https://github.com/kabiroberai/darwin-tools-linux/releases) exists. e.g. `ubuntu22.04-aarch64`.
     - **developer dir**: this should be the path to `Xcode.app/Contents/Developer`. On macOS, you can omit this argument to let the script infer it.
 
-Find the output at `output/*.artifactbundle`.
+Find the output at `output/darwin.artifactbundle`.
 
 ## Installing
 
 Prerequisites:
 - Linux
 - Swift 5.9 toolchain (<https://swift.org/download>)
-- A built copy of `darwin.artifactbundle` (see **Building**)
+- `darwin.artifactbundle` (see **Building**)
 
 ```
-swift experimental-sdk install path/to/darwin.artifactbundle
+swift experimental-sdk install output/darwin.artifactbundle
 ```
 
 ## Usage
