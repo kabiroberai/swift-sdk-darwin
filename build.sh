@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DARWIN_TOOLS_VERSION="2.2.1"
+DARWIN_TOOLS_VERSION="2.3.0"
 
 set -e
 
@@ -30,7 +30,6 @@ echo "Installing toolset..."
 mkdir -p "$bundle/toolset"
 curl -#L "https://github.com/kabiroberai/darwin-tools-linux/releases/download/v${DARWIN_TOOLS_VERSION}/darwin-tools-${linux_version}.tar.gz" \
     | tar xzf - -C "$bundle/toolset" --strip-components=2
-echo '#!/bin/sh' > "$bundle/toolset/bin/dsymutil"
 
 echo "Installing Developer directories..."
 mkdir -p "$bundle/Developer"
