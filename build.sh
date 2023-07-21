@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DARWIN_TOOLS_VERSION="2.2.1"
+DARWIN_TOOLS_VERSION="2.3.0"
 
 set -e
 
@@ -29,8 +29,8 @@ mkdir -p "$bundle/res"
 cp -a "$dev_dir/Toolchains/XcodeDefault.xctoolchain/usr/lib/"{swift,swift_static,clang} "$bundle/res/"
 
 mkdir -p "$bundle/toolset"
-curl -#L "https://github.com/kabiroberai/darwin-tools-linux/releases/download/v${DARWIN_TOOLS_VERSION}/darwin-tools-${linux_version}.tar.gz" | tar xvzf - -C "$bundle/toolset" --strip-components=2
-cp -a templates/dsymutil "$bundle/toolset/bin/"
+curl -#L "https://github.com/kabiroberai/darwin-tools-linux/releases/download/v${DARWIN_TOOLS_VERSION}/darwin-tools-${linux_version}.tar.gz" \
+    | tar xzf - -C "$bundle/toolset" --strip-components=2
 
 function add_ver {
     target="$1$2"
