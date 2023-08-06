@@ -26,6 +26,11 @@ bundle="output/darwin.artifactbundle"
 rm -rf "$bundle"
 cp -a layout "$bundle"
 
+# we need to include the version numbers in the SDK names; ld uses these when emitting LC_BUILD_VERSION.
+MacOSX_SDK="$(basename "$dev_dir"/Platforms/MacOSX.platform/Developer/SDKs/MacOSX*.*.sdk)"
+iPhoneOS_SDK="$(basename "$dev_dir"/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS*.*.sdk)"
+sed 's/$MacOSX_SDK/'"$MacOSX_SDK"'/g; s/$iPhoneOS_SDK/'"$iPhoneOS_SDK"'/g' templates/swift-sdk.json > "$bundle/swift-sdk.json"
+
 echo "Installing toolset..."
 mkdir -p "$bundle/toolset"
 curl -#L "https://github.com/kabiroberai/darwin-tools-linux/releases/download/v${DARWIN_TOOLS_VERSION}/darwin-tools-${linux_version}.tar.gz" \
@@ -35,8 +40,8 @@ echo "Installing Developer directories..."
 mkdir -p "$bundle/Developer"
 rsync -aW --relative \
     "$dev_dir/./"Toolchains/XcodeDefault.xctoolchain/usr/lib/{swift,swift_static,clang} \
-    "$dev_dir/./"Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk \
-    "$dev_dir/./"Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk \
+    "$dev_dir/./"Platforms/iPhoneOS.platform/Developer/SDKs \
+    "$dev_dir/./"Platforms/MacOSX.platform/Developer/SDKs \
     "$bundle/Developer/"
 
 echo "Done!"
