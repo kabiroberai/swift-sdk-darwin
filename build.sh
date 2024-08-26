@@ -42,6 +42,17 @@ rsync -aW --relative \
     "$dev_dir/./"Toolchains/XcodeDefault.xctoolchain/usr/lib/{swift,swift_static,clang} \
     "$dev_dir/./"Platforms/iPhoneOS.platform/Developer/SDKs \
     "$dev_dir/./"Platforms/MacOSX.platform/Developer/SDKs \
+    --exclude "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/*/prebuilt-modules" \
     "$bundle/Developer/"
+
+echo "Applying patches..."
+# patches:
+# - OSS toolchain doesn't seem to know about bridgeOS. _originallyDefinedIn doesn't like this, triggers this error:
+#   https://github.com/swiftlang/swift/blob/7abd8890b5acb5ca111bf5466a1483d2bd3fa1d2/lib/Parse/ParseDecl.cpp#L3503
+# - -target-variant appears to trip this assertion:
+#   https://github.com/swiftlang/swift/blob/7abd8890b5acb5ca111bf5466a1483d2bd3fa1d2/lib/SILGen/SILGenDecl.cpp#L1774
+find "$bundle"/Developer -type f -name '*.swiftinterface' -print0 | xargs -0 -n1 sed -i '' \
+    -e '/@_originallyDefinedIn.*bridgeOS/d' \
+    -e 's/ -target-variant [a-z0-9.-]*//g'
 
 echo "Done!"
