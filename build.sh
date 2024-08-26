@@ -19,6 +19,12 @@ else
     exit 1
 fi
 
+if [[ "$(uname -s)" == Darwin ]]; then
+    sed_inplace=(-i '')
+else
+    sed_inplace=(-i)
+fi
+
 mkdir -p output
 
 echo "Making base..."
@@ -47,11 +53,11 @@ rsync -aW --relative \
 
 echo "Applying patches..."
 # patches:
-# - OSS toolchain doesn't seem to know about bridgeOS. _originallyDefinedIn doesn't like this, triggers this error:
+# - OSS toolchain doesn't seem to know about bridgeOS 9. _originallyDefinedIn doesn't like this, triggers this error:
 #   https://github.com/swiftlang/swift/blob/7abd8890b5acb5ca111bf5466a1483d2bd3fa1d2/lib/Parse/ParseDecl.cpp#L3503
 # - -target-variant appears to trip this assertion:
 #   https://github.com/swiftlang/swift/blob/7abd8890b5acb5ca111bf5466a1483d2bd3fa1d2/lib/SILGen/SILGenDecl.cpp#L1774
-find "$bundle"/Developer -type f -name '*.swiftinterface' -print0 | xargs -0 -n1 sed -i '' \
+find "$bundle"/Developer -type f -name '*.swiftinterface' -print0 | xargs -0 -n1 sed "${sed_inplace[@]}" \
     -e '/@_originallyDefinedIn.*bridgeOS/d' \
     -e 's/ -target-variant [a-z0-9.-]*//g'
 
