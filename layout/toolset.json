@@ -1,0 +1,13 @@
+{
+    "schemaVersion": "1.0",
+    "rootPath": "toolset/bin",
+    "linker": {
+        "path": "ld"
+    },
+    "swiftCompiler": {
+        "extraCLIOptions": [
+            "-Xfrontend",
+            "-disable-round-trip-debug-types"
+        ]
+    }
+}

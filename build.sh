@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DARWIN_TOOLS_VERSION="2.3.0"
+DARWIN_TOOLS_VERSION="2.4.0"
 
 set -e
 
@@ -19,43 +19,46 @@ else
     exit 1
 fi
 
+if [[ "$(uname -s)" == Darwin ]]; then
+    sed_inplace=(-i '')
+else
+    sed_inplace=(-i)
+fi
+
 mkdir -p output
 
+echo "Making base..."
 bundle="output/darwin.artifactbundle"
 rm -rf "$bundle"
 cp -a layout "$bundle"
 
-mkdir -p "$bundle/res"
-cp -a "$dev_dir/Toolchains/XcodeDefault.xctoolchain/usr/lib/"{swift,swift_static,clang} "$bundle/res/"
+# we need to include the version numbers in the SDK names; ld uses these when emitting LC_BUILD_VERSION.
+MacOSX_SDK="$(basename "$dev_dir"/Platforms/MacOSX.platform/Developer/SDKs/MacOSX*.*.sdk)"
+iPhoneOS_SDK="$(basename "$dev_dir"/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS*.*.sdk)"
+sed 's/$MacOSX_SDK/'"$MacOSX_SDK"'/g; s/$iPhoneOS_SDK/'"$iPhoneOS_SDK"'/g' templates/swift-sdk.json > "$bundle/swift-sdk.json"
 
+echo "Installing toolset..."
 mkdir -p "$bundle/toolset"
 curl -#L "https://github.com/kabiroberai/darwin-tools-linux/releases/download/v${DARWIN_TOOLS_VERSION}/darwin-tools-${linux_version}.tar.gz" \
     | tar xzf - -C "$bundle/toolset" --strip-components=2
 
-function add_ver {
-    target="$1$2"
-    mkdir -p "$bundle/targets/$target"
-    sed 's/$TARGET/'$target'/g' templates/toolset-target.json > "$bundle/targets/$target/toolset.json"
-    sed 's/$SDK/'$sdk_name'/g' "templates/swift-sdk.json" > "$bundle/targets/$target/swift-sdk.json"
-    jq '. * $next' --argjson next "$(sed 's/$TARGET/'"$target"'/g' templates/info-base.json)" < "$bundle/info.json" > "$bundle/info.json.tmp"
-    mv "$bundle/info.json"{.tmp,}
-}
+echo "Installing Developer directories..."
+mkdir -p "$bundle/Developer"
+rsync -aW --relative \
+    "$dev_dir/./"Toolchains/XcodeDefault.xctoolchain/usr/lib/{swift,swift_static,clang} \
+    "$dev_dir/./"Platforms/iPhoneOS.platform/Developer/SDKs \
+    "$dev_dir/./"Platforms/MacOSX.platform/Developer/SDKs \
+    --exclude "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/*/prebuilt-modules" \
+    "$bundle/Developer/"
 
-function add_plat {
-    sdk_path="$dev_dir/Platforms/$2.platform/Developer/SDKs/$2.sdk"
-    sdk_name="$(basename "$sdk_path")"
-    sys="$(jq -r ".SupportedTargets.$1.LLVMTargetTripleSys" < "$sdk_path/SDKSettings.json")"
-    mkdir -p "$bundle/sdks"
-    cp -a "${sdk_path}" "$bundle/sdks/"
-    versions=($(jq -r '.SupportedTargets.'"$1"'.ValidDeploymentTargets | join(" ")' < "$sdk_path/SDKSettings.json"))
-    for version in "${versions[@]}"; do
-        add_ver $sys $version
-        if echo $version | grep -q '^[0-9]*\.0'; then
-            major="$(echo $version | grep -o '^[0-9]*')"
-            add_ver $sys $major
-        fi
-    done
-}
+echo "Applying patches..."
+# patches:
+# - OSS toolchain doesn't seem to know about bridgeOS 9. _originallyDefinedIn doesn't like this, triggers this error:
+#   https://github.com/swiftlang/swift/blob/7abd8890b5acb5ca111bf5466a1483d2bd3fa1d2/lib/Parse/ParseDecl.cpp#L3503
+# - -target-variant appears to trip this assertion:
+#   https://github.com/swiftlang/swift/blob/7abd8890b5acb5ca111bf5466a1483d2bd3fa1d2/lib/SILGen/SILGenDecl.cpp#L1774
+find "$bundle"/Developer -type f -name '*.swiftinterface' -print0 | xargs -0 -n1 sed "${sed_inplace[@]}" \
+    -e '/@_originallyDefinedIn.*bridgeOS/d' \
+    -e 's/ -target-variant [a-z0-9.-]*//g'
 
-add_plat iphoneos iPhoneOS
-add_plat macosx MacOSX
+echo "Done!"

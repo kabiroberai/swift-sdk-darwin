@@ -1,11 +1,23 @@
 {
-    "schemaVersion": "3.0",
-    "runTimeTriples": {
-        "arm64-apple-darwin": {
-            "sdkRootPath": "../../sdks/$SDK",
-            "swiftResourcesPath": "../../res/swift",
-            "swiftStaticResourcesPath": "../../res/swift_static",
-            "toolsetPaths": ["../../toolset.json", "toolset.json"]
+    "schemaVersion": "4.0",
+    "targetTriples": {
+        "arm64-apple-ios": {
+            "sdkRootPath": "Developer/Platforms/iPhoneOS.platform/Developer/SDKs/$iPhoneOS_SDK",
+            "swiftResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift",
+            "swiftStaticResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift_static",
+            "toolsetPaths": ["toolset.json"]
+        },
+        "arm64-apple-macosx": {
+            "sdkRootPath": "Developer/Platforms/MacOSX.platform/Developer/SDKs/$MacOSX_SDK",
+            "swiftResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift",
+            "swiftStaticResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift_static",
+            "toolsetPaths": ["toolset.json"]
+        },
+        "x86_64-apple-macosx": {
+            "sdkRootPath": "Developer/Platforms/MacOSX.platform/Developer/SDKs/$MacOSX_SDK",
+            "swiftResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift",
+            "swiftStaticResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift_static",
+            "toolsetPaths": ["toolset.json"]
         }
     }
 }
