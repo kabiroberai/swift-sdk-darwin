@@ -35,7 +35,3 @@ swift experimental-sdk install output/darwin.artifactbundle
 ```
 swift build --experimental-swift-sdk arm64-apple-ios
 ```
-
-## TODO
-
-- [ ] Make it easy to use CI (nb: we avoid distributing pre-packaged toolchains for legal reasons)
