@@ -59,6 +59,6 @@ echo "Applying patches..."
 #   https://github.com/swiftlang/swift/blob/7abd8890b5acb5ca111bf5466a1483d2bd3fa1d2/lib/SILGen/SILGenDecl.cpp#L1774
 find "$bundle"/Developer -type f -name '*.swiftinterface' -print0 | xargs -0 -n1 sed "${sed_inplace[@]}" \
     -e '/@_originallyDefinedIn.*bridgeOS/d' \
-    -e 's/ -target-variant [a-z0-9.-]*//g'
+    -e 's/ -target-variant [a-z0-9._-]*//g'
 
 echo "Done!"
