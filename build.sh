@@ -67,6 +67,6 @@ find "$bundle"/Developer -type f -name '*.swiftinterface' -print0 | xargs -0 -n1
 
 echo "Packaging..."
 (cd "$(dirname "$bundle")" && zip -yqr "$root/output/darwin-${linux_version}.artifactbundle.zip" "$(basename "$bundle")")
-rm -rf "$bundle"
+rm -rf staging
 
 echo "Done!"
