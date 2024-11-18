@@ -25,10 +25,14 @@ else
     sed_inplace=(-i)
 fi
 
-mkdir -p output
+cd "$(dirname "$0")"
+root="$PWD"
+
+rm -rf staging
+mkdir -p staging output
 
 echo "Making base..."
-bundle="output/darwin.artifactbundle"
+bundle="staging/darwin.artifactbundle"
 rm -rf "$bundle"
 cp -a layout "$bundle"
 
@@ -60,5 +64,9 @@ echo "Applying patches..."
 find "$bundle"/Developer -type f -name '*.swiftinterface' -print0 | xargs -0 -n1 sed "${sed_inplace[@]}" \
     -e '/@_originallyDefinedIn.*bridgeOS/d' \
     -e 's/ -target-variant [a-z0-9._-]*//g'
+
+echo "Packaging..."
+(cd "$(dirname "$bundle")" && zip -yqr "$root/output/darwin-${linux_version}.artifactbundle.zip" "$(basename "$bundle")")
+rm -rf "$bundle"
 
 echo "Done!"
