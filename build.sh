@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DARWIN_TOOLS_VERSION="1.0.0"
+DARWIN_TOOLS_VERSION="1.0.1"
 
 set -e
 
