@@ -14,12 +14,12 @@ jobs:
           xcode-version: '16.1'
       - name: Build
         run: |
-          ./build.sh ubuntu24.04
-          ./build.sh ubuntu24.04-aarch64
+          ./build.sh auto x86_64
+          ./build.sh auto aarch64
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           draft: true
           files: |
-            output/darwin-ubuntu24.04.artifactbundle.zip
-            output/darwin-ubuntu24.04-aarch64.artifactbundle.zip
+            output/darwin-linux-x86_64.artifactbundle.zip
+            output/darwin-linux-aarch64.artifactbundle.zip
