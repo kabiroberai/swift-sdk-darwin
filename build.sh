@@ -55,18 +55,10 @@ rsync -aW --relative \
     --exclude "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/*/prebuilt-modules" \
     "$bundle/Developer/"
 
-echo "Applying patches..."
-# patches:
-# - OSS toolchain doesn't seem to know about bridgeOS 9. _originallyDefinedIn doesn't like this, triggers this error:
-#   https://github.com/swiftlang/swift/blob/7abd8890b5acb5ca111bf5466a1483d2bd3fa1d2/lib/Parse/ParseDecl.cpp#L3503
-# - -target-variant appears to trip this assertion:
-#   https://github.com/swiftlang/swift/blob/7abd8890b5acb5ca111bf5466a1483d2bd3fa1d2/lib/SILGen/SILGenDecl.cpp#L1774
-find "$bundle"/Developer -type f -name '*.swiftinterface' -print0 | xargs -0 -n1 sed "${sed_inplace[@]}" \
-    -e '/@_originallyDefinedIn.*bridgeOS/d' \
-    -e 's/ -target-variant [a-z0-9._-]*//g'
-
 echo "Packaging..."
-(cd "$(dirname "$bundle")" && zip -yqr "$root/output/darwin-${linux_version}.artifactbundle.zip" "$(basename "$bundle")")
+# We need to zip-then-move to avoid appending to an existing zip file.
+(cd "$(dirname "$bundle")" && zip -yqr "$root/staging/darwin.artifactbundle.zip.tmp" "$(basename "$bundle")")
+mv -f "$root/staging/darwin.artifactbundle.zip.tmp" "$root/output/darwin-${linux_version}.artifactbundle.zip"
 rm -rf staging
 
 echo "Done!"
