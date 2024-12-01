@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Old versions of lld choke on -no_warn_duplicate_libraries. Should be fixed in Swift 6.1.
+# https://github.com/swiftlang/llvm-project/commit/39fe729502006f1b108828b75af8d63a27364f80
+
+# TODO: include a real copy of ld64.lld instead. 6.1 on Linux also builds lld without iOS support.
+
+ld64.lld ${@//-no_warn_duplicate_libraries}

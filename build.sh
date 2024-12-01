@@ -44,7 +44,7 @@ sed 's/$MacOSX_SDK/'"$MacOSX_SDK"'/g; s/$iPhoneOS_SDK/'"$iPhoneOS_SDK"'/g' templ
 echo "Installing toolset..."
 mkdir -p "$bundle/toolset"
 curl -#L "https://github.com/kabiroberai/darwin-tools-linux/releases/download/v${DARWIN_TOOLS_VERSION}/darwin-tools-${linux_version}.tar.gz" \
-    | tar xzf - -C "$bundle/toolset" --strip-components=2
+    | tar xzf - -C "$bundle/toolset" --strip-components=2 linux/iphone/bin/{dsymutil,libtool}
 
 echo "Installing Developer directories..."
 mkdir -p "$bundle/Developer"
