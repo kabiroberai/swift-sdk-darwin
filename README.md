@@ -14,11 +14,10 @@ Prerequisites:
 Steps:
 1. Download and install/extract [Xcode](https://developer.apple.com/download/all/?q=Xcode) 15.0 or higher
     - Use `unxip` to extract Xcode if you're on Linux.
-2. Run `./build.sh <linux host> [developer dir]`.
-    - **linux host**: You can pass any Linux host for which a darwin-tools-linux [release](https://github.com/kabiroberai/darwin-tools-linux/releases) exists. e.g. `ubuntu22.04-aarch64`.
-    - **developer dir**: this should be the path to `Xcode.app/Contents/Developer`. On macOS, you can omit this argument to let the script infer it.
+2. Run `./build.sh [developer dir]`.
+    - **developer dir**: this should be the path to `Xcode.app/Contents/Developer`. On macOS, you can omit this argument (or pass `auto`) to let the script infer it.
 
-Find the output at `output/darwin.artifactbundle`.
+Find the output at `output/darwin-linux-$(arch).artifactbundle`.
 
 ## Installing
 
@@ -27,7 +26,7 @@ Prerequisites:
 - `darwin.artifactbundle` built for your host OS (see **Building**)
 
 ```
-swift experimental-sdk install output/darwin.artifactbundle
+swift experimental-sdk install output/darwin-linux-$(arch).artifactbundle
 ```
 
 ## Usage

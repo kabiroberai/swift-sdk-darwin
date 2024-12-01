@@ -2,6 +2,11 @@
     "schemaVersion": "1.0",
     "rootPath": "toolset/bin",
     "linker": {
-        "path": "ld"
+        "path": "ld64.lld"
+    },
+    "swiftCompiler": {
+        "extraCLIOptions": [
+            "-use-ld=lld"
+        ]
     }
 }
