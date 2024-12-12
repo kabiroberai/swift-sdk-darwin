@@ -2,6 +2,8 @@
     "current": "1.1.0",
     "metadata": {
         "1.1.0": {
+            "arm64Checksum": "b640b7c7a133b0cd3e9f6ee49ac5b8b990b2625467f1fd81bf27646c1fa87001",
+            "x64Checksum": "",
             "compilerRange": ["6.0", "6.1"]
         }
     }
