@@ -3,7 +3,7 @@
     "metadata": {
         "1.1.0": {
             "arm64Checksum": "b640b7c7a133b0cd3e9f6ee49ac5b8b990b2625467f1fd81bf27646c1fa87001",
-            "x64Checksum": "",
+            "x64Checksum": "7f659126ecb7513e7a973706c5f2aa8b7204906c149d9ffb5c57efd675b11635",
             "compilerRange": ["6.0", "6.1"]
         }
     }
