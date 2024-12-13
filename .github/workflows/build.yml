@@ -1,5 +1,7 @@
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -16,6 +18,8 @@ jobs:
         run: |
           ./build.sh auto x86_64
           ./build.sh auto aarch64
+        env:
+          DARWIN_SDK_VERSION: ${{ github.ref_name }}
       - name: Release
         uses: softprops/action-gh-release@v2
         with:

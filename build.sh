@@ -56,7 +56,7 @@ cp -a layout "$bundle"
 MacOSX_SDK="$(basename "$dev_dir"/Platforms/MacOSX.platform/Developer/SDKs/MacOSX*.*.sdk)"
 iPhoneOS_SDK="$(basename "$dev_dir"/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS*.*.sdk)"
 sed 's/$MacOSX_SDK/'"$MacOSX_SDK"'/g; s/$iPhoneOS_SDK/'"$iPhoneOS_SDK"'/g' templates/swift-sdk.json > "$bundle/swift-sdk.json"
-grep -o '^    \"current\": \".*\"' versions.json | cut -d'"' -f4 > "$bundle/darwin-sdk-version.txt"
+echo "${DARWIN_SDK_VERSION:-develop}" > "$bundle/darwin-sdk-version.txt"
 
 echo "Installing toolset..."
 mkdir -p "$bundle/toolset"
