@@ -75,7 +75,10 @@ rsync -aW --relative \
 echo "Packaging..."
 # We need to zip-then-move to avoid appending to an existing zip file.
 (cd "$(dirname "$bundle")" && zip -yqr "$root/staging/darwin.artifactbundle.zip.tmp" "$(basename "$bundle")")
-mv -f "$root/staging/darwin.artifactbundle.zip.tmp" "$root/output/darwin-linux-${target_arch}.artifactbundle.zip"
+outfile="$root/output/darwin-linux-${target_arch}.artifactbundle.zip"
+mv -f "$root/staging/darwin.artifactbundle.zip.tmp" "$outfile"
 rm -rf staging
+
+type -p shasum &>/dev/null && echo "Checksum: $(shasum -a 256 "$outfile" | cut -d' ' -f1)"
 
 echo "Done!"
