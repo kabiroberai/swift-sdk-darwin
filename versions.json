@@ -1,9 +1,14 @@
 {
-    "current": "1.1.0",
+    "current": "1.2.0",
     "metadata": {
         "1.1.0": {
             "arm64Checksum": "b640b7c7a133b0cd3e9f6ee49ac5b8b990b2625467f1fd81bf27646c1fa87001",
             "x64Checksum": "7f659126ecb7513e7a973706c5f2aa8b7204906c149d9ffb5c57efd675b11635",
+            "compilerRange": ["6.0", "6.1"]
+        },
+        "1.2.0": {
+            "arm64Checksum": "ef7a844430664354979711d05c59e36792388cda781fb7051397c0def7203973",
+            "x64Checksum": "2bab437c2d1ca11478d33f7e5ad35ef7f416a9c2457b4c6d8556c0770932db78",
             "compilerRange": ["6.0", "6.1"]
         }
     }
