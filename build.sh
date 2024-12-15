@@ -79,6 +79,9 @@ outfile="$root/output/darwin-linux-${target_arch}.artifactbundle.zip"
 mv -f "$root/staging/darwin.artifactbundle.zip.tmp" "$outfile"
 rm -rf staging
 
-type -p shasum &>/dev/null && echo "Checksum: $(shasum -a 256 "$outfile" | cut -d' ' -f1)"
+if type -p shasum &>/dev/null; then
+    shasum -a 256 "$outfile" | cut -d' ' -f1 > "$outfile".sha256
+    echo "SHA256: $(<"$outfile".sha256)"
+fi
 
 echo "Done!"
