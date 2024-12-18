@@ -7,6 +7,18 @@
             "swiftStaticResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift_static",
             "toolsetPaths": ["toolset.json"]
         },
+        "arm64-apple-ios-simulator": {
+            "sdkRootPath": "Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/$iPhoneSimulator_SDK",
+            "swiftResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift",
+            "swiftStaticResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift_static",
+            "toolsetPaths": ["toolset.json"]
+        },
+        "x86_64-apple-ios-simulator": {
+            "sdkRootPath": "Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/$iPhoneSimulator_SDK",
+            "swiftResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift",
+            "swiftStaticResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift_static",
+            "toolsetPaths": ["toolset.json"]
+        },
         "arm64-apple-macosx": {
             "sdkRootPath": "Developer/Platforms/MacOSX.platform/Developer/SDKs/$MacOSX_SDK",
             "swiftResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift",

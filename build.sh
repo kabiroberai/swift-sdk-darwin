@@ -55,7 +55,12 @@ cp -a layout "$bundle"
 # we need to include the version numbers in the SDK names; ld uses these when emitting LC_BUILD_VERSION.
 MacOSX_SDK="$(basename "$dev_dir"/Platforms/MacOSX.platform/Developer/SDKs/MacOSX*.*.sdk)"
 iPhoneOS_SDK="$(basename "$dev_dir"/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS*.*.sdk)"
-sed 's/$MacOSX_SDK/'"$MacOSX_SDK"'/g; s/$iPhoneOS_SDK/'"$iPhoneOS_SDK"'/g' templates/swift-sdk.json > "$bundle/swift-sdk.json"
+iPhoneSimulator_SDK="$(basename "$dev_dir"/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator*.*.sdk)"
+sed \
+    -e 's/$MacOSX_SDK/'"$MacOSX_SDK"'/g' \
+    -e 's/$iPhoneOS_SDK/'"$iPhoneOS_SDK"'/g' \
+    -e 's/$iPhoneSimulator_SDK/'"$iPhoneSimulator_SDK"'/g' \
+    templates/swift-sdk.json > "$bundle/swift-sdk.json"
 echo "${DARWIN_SDK_VERSION:-develop}" > "$bundle/darwin-sdk-version.txt"
 
 echo "Installing toolset..."
@@ -67,8 +72,7 @@ echo "Installing Developer directories..."
 mkdir -p "$bundle/Developer"
 rsync -aW --relative \
     "$dev_dir/./"Toolchains/XcodeDefault.xctoolchain/usr/lib/{swift,swift_static,clang} \
-    "$dev_dir/./"Platforms/iPhoneOS.platform/Developer/SDKs \
-    "$dev_dir/./"Platforms/MacOSX.platform/Developer/SDKs \
+    "$dev_dir/./"Platforms/{iPhoneOS,MacOSX,iPhoneSimulator}.platform/Developer/SDKs \
     --exclude "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/*/prebuilt-modules" \
     "$bundle/Developer/"
 
