@@ -72,9 +72,22 @@ echo "Installing Developer directories..."
 mkdir -p "$bundle/Developer"
 rsync -aW --relative \
     "$dev_dir/./"Toolchains/XcodeDefault.xctoolchain/usr/lib/{swift,swift_static,clang} \
-    "$dev_dir/./"Platforms/{iPhoneOS,MacOSX,iPhoneSimulator}.platform/Developer/SDKs \
+    "$dev_dir/./"Platforms/{iPhoneOS,MacOSX,iPhoneSimulator}.platform/Developer/{SDKs,Library/Frameworks,usr/lib} \
     --exclude "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/*/prebuilt-modules" \
     "$bundle/Developer/"
+
+# XCTest and Testing.framework are located in *.platform/Developer/{Library/Frameworks,usr/lib} rather than inside
+# the SDK. These search paths are explicitly included when building tests, which presumably ensures that normal
+# applications don't accidentally link against them in production.
+#
+# SwiftPM makes no such affordances outside of macOS, so we need to symlink them into the SDKs. While this drops a
+# safeguard it's better than not having the testing libs at all.
+for platform in iPhoneOS MacOSX iPhoneSimulator; do
+    ln -s ../../../../../Library/Frameworks/Testing.framework "${bundle}/Developer/Platforms/${platform}.platform/Developer/SDKs/${platform}.sdk/System/Library/Frameworks/"
+    ln -s ../../../../../Library/Frameworks/XCTest.framework "${bundle}/Developer/Platforms/${platform}.platform/Developer/SDKs/${platform}.sdk/System/Library/Frameworks/"
+    ln -s ../../../../usr/lib/libXCTestSwiftSupport.dylib "${bundle}/Developer/Platforms/${platform}.platform/Developer/SDKs/${platform}.sdk/usr/lib/"
+    ln -s ../../../../../usr/lib/XCTest.swiftmodule "${bundle}/Developer/Platforms/${platform}.platform/Developer/SDKs/${platform}.sdk/usr/lib/swift/"
+done
 
 echo "Packaging..."
 # We need to zip-then-move to avoid appending to an existing zip file.
