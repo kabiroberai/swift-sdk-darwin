@@ -80,13 +80,12 @@ rsync -aW --relative \
 # the SDK. These search paths are explicitly included when building tests, which presumably ensures that normal
 # applications don't accidentally link against them in production.
 #
-# SwiftPM makes no such affordances outside of macOS, so we need to symlink them into the SDKs. While this drops a
-# safeguard it's better than not having the testing libs at all.
+# SwiftPM makes no such affordances outside of macOS, so we add the usr/lib path as include/library search paths
+# in the SDK config, and symlink the frameworks into the SDKs (since there's no frameworkSearchPaths option).
+# While this drops a safeguard it's better than not having the testing libs at all.
 for platform in iPhoneOS MacOSX iPhoneSimulator; do
-    ln -s ../../../../../Library/Frameworks/Testing.framework "${bundle}/Developer/Platforms/${platform}.platform/Developer/SDKs/${platform}.sdk/System/Library/Frameworks/"
-    ln -s ../../../../../Library/Frameworks/XCTest.framework "${bundle}/Developer/Platforms/${platform}.platform/Developer/SDKs/${platform}.sdk/System/Library/Frameworks/"
-    ln -s ../../../../usr/lib/libXCTestSwiftSupport.dylib "${bundle}/Developer/Platforms/${platform}.platform/Developer/SDKs/${platform}.sdk/usr/lib/"
-    ln -s ../../../../../usr/lib/XCTest.swiftmodule "${bundle}/Developer/Platforms/${platform}.platform/Developer/SDKs/${platform}.sdk/usr/lib/swift/"
+    ln -s ../../../../../Library/Frameworks/{Testing,XCTest}.framework \
+        "${bundle}/Developer/Platforms/${platform}.platform/Developer/SDKs/${platform}.sdk/System/Library/Frameworks/"
 done
 
 echo "Packaging..."

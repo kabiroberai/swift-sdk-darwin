@@ -3,30 +3,40 @@
     "targetTriples": {
         "arm64-apple-ios": {
             "sdkRootPath": "Developer/Platforms/iPhoneOS.platform/Developer/SDKs/$iPhoneOS_SDK",
+            "includeSearchPaths": ["Developer/Platforms/iPhoneOS.platform/Developer/usr/lib"],
+            "librarySearchPaths": ["Developer/Platforms/iPhoneOS.platform/Developer/usr/lib"],
             "swiftResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift",
             "swiftStaticResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift_static",
             "toolsetPaths": ["toolset.json"]
         },
         "arm64-apple-ios-simulator": {
             "sdkRootPath": "Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/$iPhoneSimulator_SDK",
+            "includeSearchPaths": ["Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib"],
+            "librarySearchPaths": ["Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib"],
             "swiftResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift",
             "swiftStaticResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift_static",
             "toolsetPaths": ["toolset.json"]
         },
         "x86_64-apple-ios-simulator": {
             "sdkRootPath": "Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/$iPhoneSimulator_SDK",
+            "includeSearchPaths": ["Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib"],
+            "librarySearchPaths": ["Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib"],
             "swiftResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift",
             "swiftStaticResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift_static",
             "toolsetPaths": ["toolset.json"]
         },
         "arm64-apple-macosx": {
             "sdkRootPath": "Developer/Platforms/MacOSX.platform/Developer/SDKs/$MacOSX_SDK",
+            "includeSearchPaths": ["Developer/Platforms/MacOSX.platform/Developer/usr/lib"],
+            "librarySearchPaths": ["Developer/Platforms/MacOSX.platform/Developer/usr/lib"],
             "swiftResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift",
             "swiftStaticResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift_static",
             "toolsetPaths": ["toolset.json"]
         },
         "x86_64-apple-macosx": {
             "sdkRootPath": "Developer/Platforms/MacOSX.platform/Developer/SDKs/$MacOSX_SDK",
+            "includeSearchPaths": ["Developer/Platforms/MacOSX.platform/Developer/usr/lib"],
+            "librarySearchPaths": ["Developer/Platforms/MacOSX.platform/Developer/usr/lib"],
             "swiftResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift",
             "swiftStaticResourcesPath": "Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift_static",
             "toolsetPaths": ["toolset.json"]
