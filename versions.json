@@ -15,6 +15,11 @@
             "arm64Checksum": "a445b2f0c7188ad94e730cb321fa00cc0c56b413a7252fe8cd8d7dfac0fb1dfd",
             "x64Checksum": "c619600e0da0ee7e2298018a0e059cd33a049c9822c208b6b791e72aefef0b87",
             "compilerRange": ["6.0", "6.1"]
+        },
+        "1.3.1": {
+            "arm64Checksum": "75696c64d8dbddb125a4d3294db8f0010d10f3d524866b6ad758c871846f3835",
+            "x64Checksum": "f25dbeb34c62f55400724724efd030337357063758f9c003b7b06d0b5ec216d7",
+            "compilerRange": ["6.0", "6.1"]
         }
     }
 }
