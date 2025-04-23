@@ -63,6 +63,11 @@ sed \
     templates/swift-sdk.json > "$bundle/swift-sdk.json"
 echo "${DARWIN_SDK_VERSION:-develop}" > "$bundle/darwin-sdk-version.txt"
 
+echo "SDKs:"
+echo "  MacOSX: $MacOSX_SDK"
+echo "  iPhoneOS: $iPhoneOS_SDK"
+echo "  iPhoneSimulator: $iPhoneSimulator_SDK"
+
 echo "Installing toolset..."
 mkdir -p "$bundle/toolset"
 curl -#L "https://github.com/kabiroberai/darwin-tools-linux-llvm/releases/download/v${DARWIN_TOOLS_VERSION}/toolset-${target_arch}.tar.gz" \
@@ -72,7 +77,7 @@ echo "Installing Developer directories..."
 mkdir -p "$bundle/Developer"
 rsync -aW --relative \
     "$dev_dir/./"Toolchains/XcodeDefault.xctoolchain/usr/lib/{swift,swift_static,clang} \
-    "$dev_dir/./"Platforms/{iPhoneOS,MacOSX,iPhoneSimulator}.platform/Developer/{SDKs,Library/Frameworks,usr/lib} \
+    "$dev_dir/./"Platforms/{iPhoneOS,MacOSX,iPhoneSimulator}.platform/Developer/{SDKs,Library/{Private,}Frameworks,usr/lib} \
     --exclude "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/*/prebuilt-modules" \
     "$bundle/Developer/"
 
