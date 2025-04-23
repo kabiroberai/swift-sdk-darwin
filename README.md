@@ -7,6 +7,8 @@ SDKs for cross-compiling Darwin code on Linux.
 Prerequisites:
 - macOS
     - Xcode
+    - [rsync](https://rsync.samba.org)
+        - The system version of rsync will suffice on macOS < 15.4. However, 15.4 replaces rsync with openrsync which seems to not fully support `--relative`. If you're on macOS 15.4+, you may need to `brew install rsync`.
 - Linux
     - [rsync](https://rsync.samba.org)
     - [unxip](https://github.com/saagarjha/unxip)
