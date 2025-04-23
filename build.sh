@@ -72,7 +72,7 @@ echo "Installing Developer directories..."
 mkdir -p "$bundle/Developer"
 rsync -aW --relative \
     "$dev_dir/./"Toolchains/XcodeDefault.xctoolchain/usr/lib/{swift,swift_static,clang} \
-    "$dev_dir/./"Platforms/{iPhoneOS,MacOSX,iPhoneSimulator}.platform/Developer/{SDKs,Library/Frameworks,usr/lib} \
+    "$dev_dir/./"Platforms/{iPhoneOS,MacOSX,iPhoneSimulator}.platform/Developer/{SDKs,Library/{Private,}Frameworks,usr/lib} \
     --exclude "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/*/prebuilt-modules" \
     "$bundle/Developer/"
 
@@ -84,7 +84,7 @@ rsync -aW --relative \
 # in the SDK config, and symlink the frameworks into the SDKs (since there's no frameworkSearchPaths option).
 # While this drops a safeguard it's better than not having the testing libs at all.
 for platform in iPhoneOS MacOSX iPhoneSimulator; do
-    ln -s ../../../../../Library/Frameworks/{Testing,XCTest}.framework \
+    ln -s ../../../../../Library/{Frameworks/{Testing,XCTest,XCUIAutomation},PrivateFrameworks/XCTestCore}.framework \
         "${bundle}/Developer/Platforms/${platform}.platform/Developer/SDKs/${platform}.sdk/System/Library/Frameworks/"
 done
 
