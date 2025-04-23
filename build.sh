@@ -84,6 +84,7 @@ rsync -aW --relative \
 # in the SDK config, and symlink the frameworks into the SDKs (since there's no frameworkSearchPaths option).
 # While this drops a safeguard it's better than not having the testing libs at all.
 for platform in iPhoneOS MacOSX iPhoneSimulator; do
+    ls -la "${bundle}/Developer/Platforms/${platform}.platform/Developer/SDKs/${platform}.sdk/System/Library/Frameworks/"
     ln -s ../../../../../Library/{Frameworks/{Testing,XCTest,XCUIAutomation},PrivateFrameworks/XCTestCore}.framework \
         "${bundle}/Developer/Platforms/${platform}.platform/Developer/SDKs/${platform}.sdk/System/Library/Frameworks/"
 done
