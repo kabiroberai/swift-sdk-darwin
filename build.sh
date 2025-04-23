@@ -72,7 +72,7 @@ echo "Installing Developer directories..."
 mkdir -p "$bundle/Developer"
 rsync -aW --relative \
     "$dev_dir/./"Toolchains/XcodeDefault.xctoolchain/usr/lib/{swift,swift_static,clang} \
-    "$dev_dir/./"Platforms/{iPhoneOS,MacOSX,iPhoneSimulator}.platform/Developer/{SDKs,Library/{Private,}Frameworks,usr/lib} \
+    "$dev_dir/./"Platforms/{iPhoneOS,MacOSX,iPhoneSimulator}.platform/Developer/{SDKs,Library/Frameworks,usr/lib} \
     --exclude "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/*/prebuilt-modules" \
     "$bundle/Developer/"
 
