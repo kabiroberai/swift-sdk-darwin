@@ -1,6 +1,6 @@
 # swift-sdk-darwin
 
-SDKs for cross-compiling Darwin code on Linux.
+**DEPRECATED:** This repository has been superseded by [xtool](https://github.com/xtool-org/xtool).
 
 ## Building
 
